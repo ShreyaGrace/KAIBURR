@@ -1,0 +1,29 @@
+<!-- templates/index.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Server Manager</title>
+</head>
+<body>
+    <h1>Servers</h1>
+
+    <form method="POST">
+        <input type="text" name="name" placeholder="Name">
+        <input type="text" name="language" placeholder="Language">
+        <input type="text" name="framework" placeholder="Framework">
+        <button type="submit">Create Server</button>
+    </form>
+
+    <ul>
+        {% for server in servers %}
+            <li>
+                {{ server.name }} ({{ server.language }} / {{ server.framework }})
+                <form method="POST" action="{{ url_for('delete', id=server.id) }}">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
