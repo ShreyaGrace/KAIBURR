@@ -1,0 +1,75 @@
+openapi: 3.0.0
+info:
+  title: Server API
+  version: 1.0.0
+paths:
+  /servers:
+    get:
+      summary: Get all servers or a specific server by id
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+          description: The id of the server to retrieve
+      responses:
+        '200':
+          description: Servers retrieved successfully
+        '404':
+          description: Server not found
+    put:
+      summary: Create a server
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Server'
+      responses:
+        '200':
+          description: Server created successfully
+    delete:
+      summary: Delete a server
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+          description: The id of the server to delete
+      responses:
+        '200':
+          description: Server deleted successfully
+        '404':
+          description: Server not found
+  /servers/find:
+    get:
+      summary: Find servers by name
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+          description: The name of the server to find
+      responses:
+        '200':
+          description: Servers found successfully
+        '404':
+          description: Server not found
+components:
+  schemas:
+    Server:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        language:
+          type: string
+        framework:
+          type: string
+      required:
+        - id
+        - name
+        - language
+        - framework
